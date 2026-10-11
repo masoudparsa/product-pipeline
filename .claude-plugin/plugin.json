@@ -1,0 +1,7 @@
+{
+  "name": "product-pipeline",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Sequential role pipelines for product work: validate an idea, define features and backlog, and design screens, forms and flows.",
+  "keywords": ["product", "backlog", "ux", "design", "validation", "skill"]
+}

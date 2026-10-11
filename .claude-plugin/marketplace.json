@@ -1,0 +1,13 @@
+{
+  "name": "product-pipeline",
+  "owner": {
+    "name": "masoudparsa"
+  },
+  "plugins": [
+    {
+      "name": "product-pipeline",
+      "source": "./",
+      "description": "Sequential role pipelines for product work: validate an idea, define features and backlog, and design screens, forms and flows."
+    }
+  ]
+}
