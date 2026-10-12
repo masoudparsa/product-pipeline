@@ -45,7 +45,7 @@ Before the first role (after the design mode's Step 0), plan the route:
 8. At most ONE revision loop per run, shared by Red Team and the decider. If it is already used, or the work still fails after it, the decider does not loop again: it records the remaining issues as blockers in its decision and the run ends.
 9. Write each artifact with a single Write at the end, handoffs in a `## Role log` section. Do not print handoffs in chat. (Exception: design Step 0 may write `04-design-foundation.md` once when extracting it from code.)
 10. Chat = the route line, one progress line per role (`✓ <Role> — <one-line take>`), any questions, the mode's final summary, and the file path.
-11. Artifacts and chat in the output language; role names, IDs, KPI names and technical terms stay in English.
+11. Artifacts and chat in the output language — all prose, tables and handoffs, not only the chat (a Persian request gets a Persian artifact); role names, IDs, KPI names, code identifiers and technical terms stay in English.
 12. Independent tool calls (searches, Greps, Reads) go in ONE turn, in parallel.
 13. Web: WebSearch only where the mode allows it. WebFetch max 2 per run, only when search snippets are not enough.
 
@@ -62,7 +62,7 @@ Suggest: <concrete improvement beyond the role's scope, with one-line why> | Non
 
 ## Next step
 
-After the deciding role, ask ONE AskUserQuestion with the options listed under `Next step` in the mode's reference file, the sensible one first as `(Recommended)`.
+After the deciding role, print the mode's chat summary first — the user must be able to decide from the chat alone, without opening the artifact. Then ask ONE AskUserQuestion with the options listed under `Next step` in the mode's reference file, the sensible one first as `(Recommended)`.
 On a yes, start that mode in the same session, reading its artifact inputs as usual. The chat summary always ends with the one-line command to continue in a fresh session instead (artifacts carry everything needed), e.g. `/product-pipeline design E-03`.
 
 ## Questions

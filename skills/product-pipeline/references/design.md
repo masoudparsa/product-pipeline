@@ -31,18 +31,34 @@ If the project already has UI code, extract (Step 0-C2) instead — no roles run
 
 `04-design-foundation.md`: Source · Direction & principles · Tokens · Components · Platform rules · A11y rules · Project conventions · Suggestions · Decisions from user · Assumed decisions · Role log.
 
+## Design quality bar (design and review)
+
+The goal is a creative design that a leading modern app would ship, never creativity at the cost of UX.
+
+- **UX first.** Start from the user's job on the screen: why they come, the 2–3 questions they need answered, the one primary action. 5-second test: can they get the main answer without scrolling or reading body text? Find *opportunities* (`O-xx`, value the screen does not give yet), not only defects.
+- **Current practice.** Check how 3–5 leading apps in the domain solve this screen, and current platform guidance (Material 3 / Apple HIG / WCAG 2.2). Cite each idea `[F]` with a URL.
+- **Make it attractive.** Visual hierarchy, layout ideas (hero number or insight, cards vs. list, progressive disclosure, data viz with meaning), micro-copy, and motion where it explains change or gives feedback (state change, chart reveal, success). Motion is purposeful, short, interruptible and respects reduced-motion. Visual issues are valid when they name the user impact.
+- **Consistency guard.** Every color, size, radius, font and motion value comes from the foundation tokens and existing components; the screen must not look like another app. A new token or component only when a direction really needs it: flag `NEW-TOKEN` / `NEW-COMPONENT`, derive its value from the existing scale, and say where else in the app it should be used. Max 2 per direction without asking.
+- **Helper skills.** If the session lists design skills (e.g. `ui-ux-pro-max`, `impeccable`, `taste-skill`/`design-taste-frontend`, `emil-design-eng`, `animate`), roles may invoke at most 2 per run, for ideas or critique only. Their output never overrides project tokens or rules. None with `--fast`.
+- **Ask with a recommendation.** Any real choice (direction, removing something, a new pattern) is asked with the role's own recommendation first, per Questions in SKILL.md.
+
 ## design <epic-id | "feature description"> (repeat per epic or feature)
 
-1. **UX Architect** — CORE. Per screen: purpose, entry/exit and where it plugs into the existing navigation, fields with type + validation + error text, states (empty, loading, error, success, offline), interactions, edge cases. Follow the existing patterns from Step 0 unless clearly broken (then flag as a suggestion; don't silently change).
-2. **UI Maker** — per screen: layout top-to-bottom using ONLY existing foundation components and tokens (name the actual widget/component from the source where one exists). Need a new component → flag `NEW-COMPONENT` with a one-line spec; do not invent styles.
+1. **UX Architect** — CORE. Per screen: user's job and primary action, opportunities `O-xx`, purpose, entry/exit and where it plugs into the existing navigation, fields with type + validation + error text, states (empty, loading, error, success, offline), interactions, edge cases. Follow existing patterns from Step 0 unless they hurt the user (then propose the change with its reason; never silently change).
+2. **Pattern Research** — how 3–5 leading apps solve the same job, plus relevant platform guidance; 3–6 ideas worth borrowing, each with URL and why it fits here. Max 4 WebSearch. Reuse `validate-<feature>.md` Pattern research if it exists.
+   Skip when: `--fast`, or the change is flow, validation, logic or copy only.
+3. **UI Maker** — two directions per screen, both built on the foundation (Consistency guard):
+   - **A · Refine** — best version within current patterns and components.
+   - **B · Elevate** — bolder: new layout idea, stronger hierarchy, purposeful motion, borrowed patterns from role 2; still the same app.
+   Each: layout top-to-bottom naming actual components and tokens, motion spec (trigger, property, duration/curve from tokens), `NEW-TOKEN` / `NEW-COMPONENT` flags with one-line spec. Small size or no layout change → one direction only.
    Skip when: the change is flow, validation or logic only on existing screens with no layout change.
-3. **Design Red Team** — check against the AC from Step 0-A, consistency with the existing app, project rules, UX issues. Output: issues with screen IDs and severity. Isolated for Medium/Large; inline for Small.
+4. **Design Red Team** — checks both directions against the AC from Step 0-A, UX quality, consistency with the existing app and tokens, project rules, and **timidity**: what a leading app would do better that neither direction does. Output: issues with screen IDs, direction and severity. Isolated for Medium/Large; inline for Small.
    Skip when: a single field or copy change with no new state or flow.
-4. **Implementer** — buildability in the project's actual stack: reuse of existing components/services, costly interactions with a cheaper alternative, conflicts with project rules; write the handoff spec (files likely touched, components reused, new components, assets, open dev questions).
+5. **Implementer** — buildability of each direction in the project's actual stack: reuse of existing components/services, motion cost on the target platform, costly interactions with a cheaper alternative, conflicts with project rules; effort per direction; handoff spec (files likely touched, components reused, new tokens/components, assets, open dev questions).
    Light (handoff spec only) when: only existing components are used and there is no new animation or custom interaction.
-5. **Design Director** — CORE. Approved | Changes required; resolve every Red Team issue (fixed / accepted / rejected + reason); review suggestions.
+6. **Design Director** — CORE. Approved | Changes required; resolve every Red Team issue (fixed / accepted / rejected + reason); recommend A or B with a one-line reason. A bold idea is dropped only with a UX reason, never for caution alone; review suggestions.
 
-`design/<id>.md` (id = epic ID, or a kebab slug of the feature): Route · Inputs & sources · Working stories & AC (only if derived) · Screens (one section per S-xx: flow, fields, states, layout) · New components · Handoff spec · Decision · Suggestions · Decisions from user · Assumed decisions · Role log.
+`design/<id>.md` (id = epic ID, or a kebab slug of the feature): Route · Inputs & sources · Working stories & AC (only if derived) · User job & opportunities · Pattern research · Screens (one section per S-xx: flow, fields, states, then direction A and B layout + motion) · New tokens & components · Handoff spec · Decision · Suggestions · Decisions from user · Assumed decisions · Role log.
 
 Then ask the Next step question.
 
@@ -50,20 +66,22 @@ Then ask the Next step question.
 
 Input: a screenshot and/or a pointer to the screen. Step 0 applies (A3 for requirements, B, C). Hard rule: keep all existing functionality — removing or merging a field, action or state is a blocking question.
 
-1. **UX Architect** — CORE. First audit the current screen: issues `R-xx` with severity (High / Medium / Low), evidence (screenshot area or `file:line`) and the principle broken (hierarchy, clarity, form usability, feedback and states, consistency with the rest of the app, accessibility, RTL, platform conventions). Do not list taste-only issues. Then specify the improved screen: flow, fields, validation and error text, states, interactions — each change linked to an `R-xx`.
-2. **UI Maker** — improved layout top-to-bottom with existing foundation components and tokens only; `NEW-COMPONENT` flag if unavoidable.
-   Skip when: all High/Medium issues are flow, logic or copy only.
-3. **Design Red Team** — checks that every High/Medium `R-xx` is resolved, no existing behaviour from the code was lost, and nothing new conflicts with the app or project rules. Isolated unless Small.
-4. **Implementer** — change-oriented handoff: files to touch, what changes in each, components reused, new components, migration or API impact, cheaper alternatives for costly changes.
-5. **Design Director** — CORE. Approved | Changes required; resolve every Red Team issue; review suggestions.
+1. **UX Architect** — CORE. First the user's job on this screen and the 5-second test. Then audit: 2–4 strengths to keep (`K-xx`, with evidence); opportunities `O-xx` (value the screen should give but doesn't); issues `R-xx` with severity (High / Medium / Low), evidence (screenshot area or `file:line`) and the principle broken (task fit, hierarchy, clarity, form usability, feedback and states, visual quality, consistency with the rest of the app, accessibility, RTL, platform conventions). Then specify the improved screen: flow, fields, validation and error text, states, interactions — each change linked to an `O-xx` or `R-xx`.
+2. **Pattern Research** — as in design mode, for this screen's job.
+   Skip when: `--fast`, or all High/Medium items are logic or copy only.
+3. **UI Maker** — directions A · Refine and B · Elevate, as in design mode, on the existing foundation; every change linked to `O-xx` / `R-xx`.
+   Skip when: all High/Medium items are flow, logic or copy only.
+4. **Design Red Team** — checks that every High/Medium `R-xx` and key `O-xx` is addressed, no existing behaviour from the code was lost, nothing conflicts with the app, tokens or project rules, and flags timidity. Isolated unless Small.
+5. **Implementer** — change-oriented handoff per direction: files to touch, what changes in each, components reused, new tokens/components, motion cost, migration or API impact, effort, cheaper alternatives for costly changes.
+6. **Design Director** — CORE. Approved | Changes required; resolve every Red Team issue; recommend A or B; review suggestions.
 
-`design/review-<screen-slug>.md`: Route · Current screen & sources · Issues (`R-xx` table: severity, evidence, principle) · Changes (`R-xx` → change → why) · Improved screen spec · New components · Handoff spec · Decision · Suggestions · Decisions from user · Assumed decisions · Role log.
+`design/review-<screen-slug>.md`: Route · Current screen & sources · User job · Strengths (`K-xx`) · Opportunities (`O-xx`) · Issues (`R-xx` table: severity, evidence, principle) · Pattern research · Changes (`O/R-xx` → change → why) · Direction A · Direction B · New tokens & components · Handoff spec · Decision · Suggestions · Decisions from user · Assumed decisions · Role log.
 
 Then ask the Next step question (the mock gets a Current / Improved toggle).
 
 ## Next step (after every approved design or review)
 
-When the Design Director approves, ask ONE question with AskUserQuestion — never decide alone:
+When the Design Director approves, first print the chat summary (below) so the user can decide from the chat alone, THEN ask with ONE AskUserQuestion call — never decide alone. When two directions exist, ask two questions in that call: **Direction** (`B · Elevate` / `A · Refine` / `Both in the mock`, the Director's pick first as Recommended) and **Next step**:
 
 - **Build an HTML mock first** — recommended when the run adds or visibly changes screens (Medium/Large, or a review with layout changes).
 - **Implement now** — recommended when the change is Small or flow/logic/copy only.
@@ -77,7 +95,7 @@ After the mock, ask again: `Implement now (Recommended)` · `Request changes` (u
 
 ## HTML mock
 
-Built by UI Maker from the APPROVED spec. Output: `design/<id>.mock.html`. Reads only the spec and `04-design-foundation.md`.
+Built by UI Maker from the APPROVED spec, for the chosen direction (`Both` → an `A / B` toggle). Output: `design/<id>.mock.html`. Reads only the spec and `04-design-foundation.md`. Motion from the spec is built in CSS, honouring `prefers-reduced-motion`.
 
 Rules:
 - One self-contained HTML file: inline CSS and JS, no external scripts or images (inline SVG for icons). Web fonts only from Google Fonts, and only if the foundation uses that font; otherwise system fonts. The font stack always ends in system fonts, so the mock still renders offline.
@@ -102,5 +120,19 @@ Only after the user picks **Implement now**. Implementer writes the code in the 
 - Self-check every AC / High-Medium `R-xx` against the code and list any not met.
 - Do not commit. Report: files changed, AC status, check result, anything left for the user.
 
-## Chat summary (max 10 lines)
-Route, input sources used, decision, screens covered (review: issue counts by severity), new components, unresolved issues, top suggestions, paths (incl. mock if built), and the Next step question.
+## Chat summary (before the Next step question)
+
+Plain language, in the output language; IDs stay in English.
+
+**review** (max 30 lines):
+1. **User job:** one line — why the user opens this screen.
+2. **Strengths — kept:** each `K-xx` in one line.
+3. **Opportunities:** each `O-xx` — what value is missing → idea (with the app it comes from, if any).
+4. **Issues:** top 6 by severity — `R-xx · High|Medium|Low — what is wrong → why it hurts the user`.
+5. **Direction A · Refine / B · Elevate:** 2–3 lines each — what changes visually and in UX, motion, new tokens/components, effort. Which one the Director recommends and why.
+6. **Unchanged:** existing fields, actions and states that stay as they are.
+7. Decision, unresolved issues, top suggestions, artifact path.
+
+**design** (max 22 lines): user job and opportunities · screens covered with one line of purpose each · directions A and B (2–3 lines each, recommendation and why) · new tokens/components · effort and files touched · decision, unresolved issues, top suggestions, artifact path.
+
+Then the Next step question. After a mock: its path plus one line per screen on what to try in it.

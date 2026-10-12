@@ -55,5 +55,5 @@ Test: | Success metric: | Kill criterion: | Time box:
 
 `Plan the next experiment` = expand `## Next experiment` into a runnable plan (who to reach and how, script or test asset, success metric, kill criterion, time box), Edit that section only, then stop; re-run `validate` with the results.
 
-## Chat summary (max 10 lines)
-Decision + confidence, one-line rationale, next experiment, top suggestions, path.
+## Chat summary (max 15 lines, before the Next step question)
+Decision + confidence, one-line rationale · **For it:** 2–3 strongest points · **Against it:** 2–3 biggest risks or gaps · feature mode: fit, reuse and effort in one line each · next experiment · top suggestions · path.

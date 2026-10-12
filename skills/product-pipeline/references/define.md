@@ -35,5 +35,5 @@ No `01-validation.md` (validate was never run) → use the user's description pl
 - Approved / Approved with conditions → `Design the first epic (<E-xx>)` · `Design foundation first` (if no UI exists) · `Stop here`.
 - Sent back → `Fix the blockers and re-run define` (Recommended; user answers the blockers first) · `Stop here`.
 
-## Chat summary (max 12 lines)
-Decision, MVP in one line, epic list with story counts, top 3 open questions, top suggestions, paths.
+## Chat summary (max 15 lines, before the Next step question)
+Decision, MVP in one line · what was cut from MVP and why · epic list with story counts · top risks · top 3 open questions · top suggestions · paths.

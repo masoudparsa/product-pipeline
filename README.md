@@ -24,8 +24,9 @@ All artifacts are written to `docs/product/<slug>/` in your project.
 
 **3. Design** (specs only, no production code)
 - Foundation, once: Design Director → Design System, Platform & A11y → Design Red Team
-- Per epic or feature: UX Architect → UI Maker → Design Red Team → Implementer (buildability + handoff spec) → Design Director
-- Review an existing screen: finds the screen in your source from the screenshot's text, audits it (issues by severity with evidence), then runs the same chain — keeping all existing functionality
+- Per epic or feature: UX Architect (user job + opportunities) → Pattern Research (how leading apps solve it) → UI Maker (two directions: A · Refine, B · Elevate, both on your design tokens) → Design Red Team (risks *and* timidity) → Implementer → Design Director (recommends a direction; you choose)
+- Review an existing screen: finds the screen in your source from the screenshot's text, audits it (strengths, opportunities, issues by severity with evidence), then runs the same chain — keeping all existing functionality
+- Creative but consistent: layout ideas, hierarchy and purposeful motion, built only from your existing tokens and components; any new token or component is flagged and justified. Uses installed design skills (ui-ux-pro-max, impeccable, taste…) for ideas when available.
 
 ## How it stays cheap and fast
 
