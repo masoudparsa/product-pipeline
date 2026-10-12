@@ -6,7 +6,7 @@ Input: the raw idea. Web research: only in role 3, max 4 WebSearch calls (none w
 
 1. **Product Strategist** — CORE. Problem statement, target segment, 3–5 riskiest assumptions ranked. Typical blocking question: target user or market, if the idea leaves it open.
 2. **Customer Discovery** — CORE. Evidence the problem exists and hurts: current workaround, frequency, cost of pain. End with `Problem strength: Strong | Weak | Unknown`.
-   **GATE:** `Weak` → skip to role 8.
+   **GATE:** `Weak` → skip roles 3–6; Red Team and Chairman still run (CORE). `Unknown` (the usual case without user-supplied evidence) → continue, but the Chairman may decide at most `Validate Further`, and the Next experiment must test the problem itself.
 3. **Market & Competition** — reachable segment size (range), trend, competitors, substitutes (incl. "do nothing"), the gap.
    Skip when: internal tool for a known team, or a feature of an existing product with no separate market.
 4. **Growth & GTM** — channels to first 100 / 1,000 users, CAC range, one-line positioning.

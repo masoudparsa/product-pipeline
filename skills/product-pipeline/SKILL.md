@@ -1,6 +1,7 @@
 ---
 name: product-pipeline
 description: Run a product idea through one of three sequential role pipelines: validate (worth building?), define (features, phases, backlog), design (screens, forms, flows). Use on /product-pipeline or when asked for one of these.
+argument-hint: validate "<idea>" | define | design foundation | design <epic-id|"feature"> | design review <screenshot|screen> | design mock|implement <id> [--fast] [--lang <code>] [--no-ask] [--full] [--roles +X,-Y]
 ---
 
 # Product Pipeline
@@ -10,10 +11,10 @@ Three independent pipelines. Run ONLY the requested mode and read ONLY its refer
 | Mode | Question | Read | Input | Writes (in `docs/product/<slug>/`) |
 |---|---|---|---|---|
 | `validate <idea>` | Is it worth building? | `references/validate.md` | idea text | `01-validation.md` |
-| `define` | What exactly do we build? | `references/define.md` | `01-validation.md` | `02-definition.md`, `03-backlog.md` |
+| `define` | What exactly do we build? | `references/define.md` | `01-validation.md`, else user's description + project source | `02-definition.md`, `03-backlog.md` |
 | `design foundation` | Visual direction + design system | `references/design.md` | project source, else `02-definition.md` | `04-design-foundation.md` |
-| `design <epic-id \| "feature description">` | Screens, forms, flows of one epic or feature | `references/design.md` | backlog if available, else project source | `design/<id>.md` |
-| `design review <screenshot \| screen>` | Audit and improve an existing screen | `references/design.md` | screenshot + project source | `design/review-<screen>.md` |
+| `design <epic-id \| "feature description">` | Screens, forms, flows of one epic or feature | `references/design.md` | backlog if available, else project source | `design/<id>.md` (+ `04-design-foundation.md` if extracted) |
+| `design review <screenshot \| screen>` | Audit and improve an existing screen | `references/design.md` | screenshot + project source | `design/review-<screen>.md` (+ `04-design-foundation.md` if extracted) |
 | `design mock <id>` / `design implement <id>` | Mock or code for an already approved design (normally offered automatically at the end of a design run) | `references/design.md` | `design/<id>.md` + foundation | `design/<id>.mock.html` / project code |
 
 No mode given → infer it from the request. Still ambiguous → ask (see Questions), then proceed.
@@ -40,9 +41,9 @@ Before the first role (after the design mode's Step 0), plan the route:
 4. Each role writes one handoff (format below), max 120 words. Deciding roles and artifact sections are exempt. No preambles, no restating earlier roles.
 5. Anti-anchoring: each role first forms its own view from the raw input, THEN reads the previous handoff and records disagreement or `None`. Never rewrite earlier findings; add to them.
 6. Tag claims `[F]` fact (with source: URL or file path) or `[A]` assumption. Never invent precise numbers — give a range marked `[A]`. No real interviews or data exist unless the user supplied them.
-7. Gates are hard: a failed gate skips straight to the deciding role.
-8. At most ONE revision loop per run (when Red Team or the decider sends work back).
-9. Write each artifact with a single Write at the end, handoffs in a `## Role log` section. Do not print handoffs in chat.
+7. Gates are hard: a failed gate skips all remaining optional roles; CORE roles still run.
+8. At most ONE revision loop per run, shared by Red Team and the decider. If it is already used, or the work still fails after it, the decider does not loop again: it records the remaining issues as blockers in its decision and the run ends.
+9. Write each artifact with a single Write at the end, handoffs in a `## Role log` section. Do not print handoffs in chat. (Exception: design Step 0 may write `04-design-foundation.md` once when extracting it from code.)
 10. Chat = the route line, one progress line per role (`✓ <Role> — <one-line take>`), any questions, the mode's final summary, and the file path.
 11. Artifacts and chat in the output language; role names, IDs, KPI names and technical terms stay in English.
 
@@ -60,8 +61,9 @@ Suggest: <concrete improvement beyond the role's scope, with one-line why> | Non
 ## Next step
 
 After the deciding role, ask ONE AskUserQuestion with the sensible next step first as `(Recommended)`:
-- validate: Go → `Run define now` · Validate Further / Pivot → `Plan the next experiment` · plus `Stop here`.
-- define: Approved → `Design the first epic (<E-xx>)` · `Design foundation first` (if no UI exists) · `Stop here`.
+- validate: Go → `Run define now` · `Stop here`. Validate Further / Pivot → `Plan the next experiment` · `Stop here`. No-Go → `Stop here` · `Pivot: re-run validate on a reframed idea`.
+  `Plan the next experiment` = expand `## Next experiment` in `01-validation.md` into a runnable plan (who to reach and how, script or test asset, success metric, kill criterion, time box), Edit that section only, then stop; re-run `validate` with the results.
+- define: Approved / Approved with conditions → `Design the first epic (<E-xx>)` · `Design foundation first` (if no UI exists) · `Stop here`. Sent back → `Fix the blockers and re-run define` (Recommended; user answers the blockers first) · `Stop here`.
 - design: see Next step in the design reference (mock / implement / stop).
 On a yes, start that mode in the same session, reading its artifact inputs as usual.
 

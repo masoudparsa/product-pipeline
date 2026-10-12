@@ -69,7 +69,7 @@ When the Design Director approves, ask ONE question with AskUserQuestion — nev
 - **Implement now** — recommended when the change is Small or flow/logic/copy only.
 - **Stop here** — keep the spec only.
 
-Put the recommended one first with `(Recommended)` and a one-line reason. If the Director chose `Changes required`, apply them in the one allowed revision loop before asking. With no answer or no AskUserQuestion tool: stop after the spec and list the two options in the chat summary — never write code without the user's choice.
+Put the recommended one first with `(Recommended)` and a one-line reason. If the Director chose `Changes required` and the revision loop is still unused, apply them once and let the Director decide again. If the loop was already used or changes are still required, do not ask this question: write the spec with the open changes under `Decision`, list them in the chat summary, and stop. With no answer or no AskUserQuestion tool: stop after the spec and list the two options in the chat summary — never write code without the user's choice.
 
 After the mock, ask again: `Implement now (Recommended)` · `Request changes` (user lists them; update spec + mock together, one round, then ask again) · `Stop here`.
 
@@ -80,7 +80,7 @@ After the mock, ask again: `Implement now (Recommended)` · `Request changes` (u
 Built by UI Maker from the APPROVED spec. Output: `design/<id>.mock.html`. Reads only the spec and `04-design-foundation.md`.
 
 Rules:
-- One self-contained HTML file: inline CSS and JS, no external scripts or images (inline SVG for icons). Web fonts only from Google Fonts, and only if the foundation uses that font; otherwise system fonts.
+- One self-contained HTML file: inline CSS and JS, no external scripts or images (inline SVG for icons). Web fonts only from Google Fonts, and only if the foundation uses that font; otherwise system fonts. The font stack always ends in system fonts, so the mock still renders offline.
 - Foundation tokens become CSS variables (`--color-*`, `--space-*`, `--radius-*`, type scale) — exact values from `04-design-foundation.md`, no new colors or sizes.
 - Real copy in the output language, with realistic sample data. RTL (`dir="rtl"`) when the app is RTL.
 - Mobile app → each screen inside a ~390×844 phone frame; web → responsive container. Screens laid out side by side, wrapping.

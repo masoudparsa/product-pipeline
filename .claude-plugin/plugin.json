@@ -2,6 +2,12 @@
   "name": "product-pipeline",
   "version": "1.0.0",
   "license": "MIT",
+  "author": {
+    "name": "masoudparsa",
+    "url": "https://github.com/masoudparsa"
+  },
+  "homepage": "https://github.com/masoudparsa/product-pipeline",
+  "repository": "https://github.com/masoudparsa/product-pipeline",
   "description": "Sequential role pipelines for product work: validate an idea, define features and backlog, and design screens, forms and flows.",
   "keywords": ["product", "backlog", "ux", "design", "validation", "skill"]
 }

@@ -1,6 +1,7 @@
 # Mode: define — what exactly do we build?
 
 Input: `01-validation.md`. Requires a Go (or user override). If the decision was not Go, ask whether to continue anyway (Recommended: stop and run the next experiment).
+No `01-validation.md` (validate was never run) → use the user's description plus the project source if any; tag what is inferred `[A]`, say in one line that validation was skipped, and continue.
 
 ## Roles (in order)
 
