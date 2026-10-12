@@ -9,7 +9,7 @@ Work out three things, in this priority order, and record the source of each in 
 **A. Requirements (what to design)**
 1. Backlog the user gave or pointed to, or `03-backlog.md` → Grep the epic heading and read only that epic's stories.
 2. Otherwise → the user's feature description (plus `validate-<feature>.md` if it exists: use its scope, pattern research and fit findings, don't redo them, and start from its `Source map` instead of searching again) + the project source: find the related existing screens, models, API/services and routes (Grep by feature keywords). Derive 3–8 working stories with AC, tagged `[A]` where inferred. These become the AC that Red Team checks against. If the description leaves the core behaviour open, that is a blocking question.
-3. `review` → locate the screen in the source: Grep for distinctive visible text from the screenshot (title, labels, button text) in code and localization files, then follow to the screen file and its direct child widgets. Current behaviour = what the code does (fields, validation, states, API calls, navigation) + what the screenshot shows. Several candidate files → ask which (Recommended: the one whose strings match most). Not found → work from the screenshot alone and say so in one line.
+3. `review` → locate the screen in the source: Grep for distinctive visible text from the screenshot (title, labels, button text) in code and localization files, then follow to the screen file and its direct child widgets. Current behaviour = what the code does (fields, validation, states, API calls, navigation) + what the screenshot shows. The screenshot is one state only: build the **state matrix** from the code's branches (see below), noting which states the screenshot shows. Several candidate files → ask which (Recommended: the one whose strings match most). Not found → work from the screenshot alone and say so in one line.
 
 **B. Project rules (constraints the design must obey)**
 If `04-design-foundation.md` exists, take them from its `Project conventions` section and skip this step. Otherwise read, if present (`CLAUDE.md` is already in context): `AGENTS.md`, `.cursor/rules` or similar, `README` sections on UI or conventions, `docs/` design or style guides, lint config (`analysis_options.yaml`, `.eslintrc`…). These rules override this skill's defaults where they conflict.
@@ -40,11 +40,12 @@ The goal is a creative design that a leading modern app would ship, never creati
 - **Make it attractive.** Visual hierarchy, layout ideas (hero number or insight, cards vs. list, progressive disclosure, data viz with meaning), micro-copy, and motion where it explains change or gives feedback (state change, chart reveal, success). Motion is purposeful, short, interruptible and respects reduced-motion. Visual issues are valid when they name the user impact.
 - **Consistency guard.** Every color, size, radius, font and motion value comes from the foundation tokens and existing components; the screen must not look like another app. A new token or component only when a direction really needs it: flag `NEW-TOKEN` / `NEW-COMPONENT`, derive its value from the existing scale, and say where else in the app it should be used. Max 2 per direction without asking.
 - **Helper skills.** If the session lists design skills (e.g. `ui-ux-pro-max`, `impeccable`, `taste-skill`/`design-taste-frontend`, `emil-design-eng`, `animate`), roles may invoke at most 2 per run, for ideas or critique only. Their output never overrides project tokens or rules. None with `--fast`.
+- **State matrix.** Every screen is designed in all its states, not only the one in the screenshot: loading (first load and refresh) · empty (no data yet, with next action) · partial / not enough data (e.g. below a chart threshold) · normal · heavy data (many items, long names and text, large numbers, overflow) · error and offline · hidden / no permission, where the code has it. Take them from the code (`if`/`switch`/`when` branches, state classes, providers); a state the code does not handle is an issue.
 - **Ask with a recommendation.** Any real choice (direction, removing something, a new pattern) is asked with the role's own recommendation first, per Questions in SKILL.md.
 
 ## design <epic-id | "feature description"> (repeat per epic or feature)
 
-1. **UX Architect** — CORE. Per screen: user's job and primary action, opportunities `O-xx`, purpose, entry/exit and where it plugs into the existing navigation, fields with type + validation + error text, states (empty, loading, error, success, offline), interactions, edge cases. Follow existing patterns from Step 0 unless they hurt the user (then propose the change with its reason; never silently change).
+1. **UX Architect** — CORE. Per screen: user's job and primary action, opportunities `O-xx`, purpose, entry/exit and where it plugs into the existing navigation, fields with type + validation + error text, the full state matrix, interactions, edge cases. Follow existing patterns from Step 0 unless they hurt the user (then propose the change with its reason; never silently change).
 2. **Pattern Research** — how 3–5 leading apps solve the same job, plus relevant platform guidance; 3–6 ideas worth borrowing, each with URL and why it fits here. Max 4 WebSearch. Reuse `validate-<feature>.md` Pattern research if it exists.
    Skip when: `--fast`, or the change is flow, validation, logic or copy only.
 3. **UI Maker** — two directions per screen, both built on the foundation (Consistency guard):
@@ -66,7 +67,7 @@ Then ask the Next step question.
 
 Input: a screenshot and/or a pointer to the screen. Step 0 applies (A3 for requirements, B, C). Hard rule: keep all existing functionality — removing or merging a field, action or state is a blocking question.
 
-1. **UX Architect** — CORE. First the user's job on this screen and the 5-second test. Then audit: 2–4 strengths to keep (`K-xx`, with evidence); opportunities `O-xx` (value the screen should give but doesn't); issues `R-xx` with severity (High / Medium / Low), evidence (screenshot area or `file:line`) and the principle broken (task fit, hierarchy, clarity, form usability, feedback and states, visual quality, consistency with the rest of the app, accessibility, RTL, platform conventions). Then specify the improved screen: flow, fields, validation and error text, states, interactions — each change linked to an `O-xx` or `R-xx`.
+1. **UX Architect** — CORE. First the user's job on this screen and the 5-second test. Then audit every state in the state matrix, not only the screenshot: 2–4 strengths to keep (`K-xx`, with evidence); opportunities `O-xx` (value the screen should give but doesn't); issues `R-xx` with severity (High / Medium / Low), evidence (screenshot area or `file:line`) and the principle broken (task fit, hierarchy, clarity, form usability, feedback and states, visual quality, consistency with the rest of the app, accessibility, RTL, platform conventions). Then specify the improved screen: flow, fields, validation and error text, states, interactions — each change linked to an `O-xx` or `R-xx`.
 2. **Pattern Research** — as in design mode, for this screen's job.
    Skip when: `--fast`, or all High/Medium items are logic or copy only.
 3. **UI Maker** — directions A · Refine and B · Elevate, as in design mode, on the existing foundation; every change linked to `O-xx` / `R-xx`.
@@ -89,7 +90,7 @@ When the Design Director approves, first print the chat summary (below) so the u
 
 Put the recommended one first with `(Recommended)` and a one-line reason. If the Director chose `Changes required` and the revision loop is still unused, apply them once and let the Director decide again. If the loop was already used or changes are still required, do not ask this question: write the spec with the open changes under `Decision`, list them in the chat summary, and stop. With no answer or no AskUserQuestion tool: stop after the spec and list the two options in the chat summary — never write code without the user's choice.
 
-After the mock, ask again: `Implement now (Recommended)` · `Request changes` (user lists them; apply them to spec and mock with targeted Edits, never a full rewrite; one round, then ask again) · `Stop here`.
+After the mock, ask again: `I'll review the mock first (Recommended)` (end the turn; the user replies later with changes or "implement", or runs `design implement <id>`) · `Implement now` · `Request changes` (user lists them; apply them to spec and mock with targeted Edits, never a full rewrite; one round, then ask again) · `Stop here`.
 
 `design mock <id>` and `design implement <id>` run these steps later from an existing `design/<id>.md` without re-running any role.
 
@@ -102,7 +103,7 @@ Rules:
 - Foundation tokens become CSS variables (`--color-*`, `--space-*`, `--radius-*`, type scale) — exact values from `04-design-foundation.md`, no new colors or sizes.
 - Real copy in the output language, with realistic sample data. RTL (`dir="rtl"`) when the app is RTL.
 - Mobile app → each screen inside a ~390×844 phone frame; web → responsive container. Screens laid out side by side, wrapping.
-- Per screen, a state switcher for the states in the spec (default, empty, loading, error, success…).
+- Per screen, a state switcher for every state in the state matrix. Each state uses realistic sample data; heavy data uses worst-case values (long names in the output language, many rows, big numbers) to show overflow. In review mode, Current and Improved both have the switcher, so each state can be compared.
 - Clickable flow: buttons and links navigate between mock screens as in the spec. Forms run the spec's validation and show its error text.
 - `Annotations` toggle overlays screen IDs, `NEW-COMPONENT` markers, and (review) `R-xx` labels on the changed areas.
 - Review mode: a `Current / Improved` toggle; Current is a faithful wireframe of the existing screen.
@@ -130,8 +131,9 @@ Plain language, in the output language; IDs stay in English.
 3. **Opportunities:** each `O-xx` — what value is missing → idea (with the app it comes from, if any).
 4. **Issues:** top 6 by severity — `R-xx · High|Medium|Low — what is wrong → why it hurts the user`.
 5. **Direction A · Refine / B · Elevate:** 2–3 lines each — what changes visually and in UX, motion, new tokens/components, effort. Which one the Director recommends and why.
-6. **Unchanged:** existing fields, actions and states that stay as they are.
-7. Decision, unresolved issues, top suggestions, artifact path.
+6. **States:** the state matrix in one line (which were seen in the screenshot, which come from code, which were missing).
+7. **Unchanged:** existing fields, actions and states that stay as they are.
+8. Decision, unresolved issues, top suggestions, artifact path.
 
 **design** (max 22 lines): user job and opportunities · screens covered with one line of purpose each · directions A and B (2–3 lines each, recommendation and why) · new tokens/components · effort and files touched · decision, unresolved issues, top suggestions, artifact path.
 
