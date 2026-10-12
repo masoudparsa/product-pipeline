@@ -7,6 +7,7 @@ Three independent pipelines — call whichever you need, whenever you need it:
 | Command | Question | Output |
 |---|---|---|
 | `/product-pipeline validate "<idea>"` | Is it worth building? | `01-validation.md` — Go / Validate Further / Pivot / No-Go |
+| `/product-pipeline validate "<feature>"` (inside a project) | Is this feature worth adding here? Reads your code, researches how others do it | `validate-<feature>.md` → on Go: design → mock / implement |
 | `/product-pipeline define` | What exactly do we build? | `02-definition.md`, `03-backlog.md` |
 | `/product-pipeline design foundation` | Visual direction and design system | `04-design-foundation.md` |
 | `/product-pipeline design E-03` or `design "feature description"` | Screens, forms and flows | `design/<id>.md` |

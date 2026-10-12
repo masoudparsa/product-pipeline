@@ -10,7 +10,7 @@ Three independent pipelines. Run ONLY the requested mode and read ONLY its refer
 
 | Mode | Question | Read | Input | Writes (in `docs/product/<slug>/`) |
 |---|---|---|---|---|
-| `validate <idea>` | Is it worth building? | `references/validate.md` | idea text | `01-validation.md` |
+| `validate <idea \| "feature">` | Is it worth building? | `references/validate.md` | idea text (+ project source for a feature of the current project) | `01-validation.md`, or `validate-<feature>.md` for a feature |
 | `define` | What exactly do we build? | `references/define.md` | `01-validation.md`, else user's description + project source | `02-definition.md`, `03-backlog.md` |
 | `design foundation` | Visual direction + design system | `references/design.md` | project source, else `02-definition.md` | `04-design-foundation.md` |
 | `design <epic-id \| "feature description">` | Screens, forms, flows of one epic or feature | `references/design.md` | backlog if available, else project source | `design/<id>.md` (+ `04-design-foundation.md` if extracted) |
@@ -61,7 +61,7 @@ Suggest: <concrete improvement beyond the role's scope, with one-line why> | Non
 ## Next step
 
 After the deciding role, ask ONE AskUserQuestion with the sensible next step first as `(Recommended)`:
-- validate: Go → `Run define now` · `Stop here`. Validate Further / Pivot → `Plan the next experiment` · `Stop here`. No-Go → `Stop here` · `Pivot: re-run validate on a reframed idea`.
+- validate: Go → `Run define now` · `Stop here`. Go in feature mode → `Design this feature now` (Recommended for effort S/M; starts `design "<feature>"`) · `Run define now` (Recommended for L) · `Stop here`. Validate Further / Pivot → `Plan the next experiment` · `Stop here`. No-Go → `Stop here` · `Pivot: re-run validate on a reframed idea`.
   `Plan the next experiment` = expand `## Next experiment` in `01-validation.md` into a runnable plan (who to reach and how, script or test asset, success metric, kill criterion, time box), Edit that section only, then stop; re-run `validate` with the results.
 - define: Approved / Approved with conditions → `Design the first epic (<E-xx>)` · `Design foundation first` (if no UI exists) · `Stop here`. Sent back → `Fix the blockers and re-run define` (Recommended; user answers the blockers first) · `Stop here`.
 - design: see Next step in the design reference (mock / implement / stop).

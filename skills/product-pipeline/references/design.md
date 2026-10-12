@@ -8,7 +8,7 @@ Work out three things, in this priority order, and record the source of each in 
 
 **A. Requirements (what to design)**
 1. Backlog the user gave or pointed to, or `03-backlog.md` → use only the stories of the requested epic.
-2. Otherwise → the user's feature description + the project source: find the related existing screens, models, API/services and routes (Grep by feature keywords). Derive 3–8 working stories with AC, tagged `[A]` where inferred. These become the AC that Red Team checks against. If the description leaves the core behaviour open, that is a blocking question.
+2. Otherwise → the user's feature description (plus `validate-<feature>.md` if it exists: use its scope, pattern research and fit findings, don't redo them) + the project source: find the related existing screens, models, API/services and routes (Grep by feature keywords). Derive 3–8 working stories with AC, tagged `[A]` where inferred. These become the AC that Red Team checks against. If the description leaves the core behaviour open, that is a blocking question.
 3. `review` → locate the screen in the source: Grep for distinctive visible text from the screenshot (title, labels, button text) in code and localization files, then follow to the screen file and its direct child widgets. Current behaviour = what the code does (fields, validation, states, API calls, navigation) + what the screenshot shows. Several candidate files → ask which (Recommended: the one whose strings match most). Not found → work from the screenshot alone and say so in one line.
 
 **B. Project rules (constraints the design must obey)**
