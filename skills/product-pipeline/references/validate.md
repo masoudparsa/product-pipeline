@@ -36,6 +36,7 @@ Go | Validate Further | Pivot | No-Go — Confidence: Low | Medium | High
 ## Revenue model & GTM path   (omit if both roles skipped)
 ## Pattern research   (feature mode)
 ## Fit with current project   (feature mode: reuse, areas touched, effort, technical risks)
+## Source map   (feature mode: the related files read, one line each — design starts from these)
 ## Top 3 risks / unproven assumptions
 ## Next experiment
 Test: | Success metric: | Kill criterion: | Time box:
@@ -44,6 +45,15 @@ Test: | Success metric: | Kill criterion: | Time box:
 ## Assumed decisions
 ## Role log
 ```
+
+## Next step
+
+- Go → `Run define now` · `Stop here`.
+- Go in feature mode → `Design this feature now` (Recommended for effort S/M; starts `design "<feature>"`) · `Run define now` (Recommended for L) · `Stop here`.
+- Validate Further / Pivot → `Plan the next experiment` · `Stop here`.
+- No-Go → `Stop here` · `Pivot: re-run validate on a reframed idea`.
+
+`Plan the next experiment` = expand `## Next experiment` into a runnable plan (who to reach and how, script or test asset, success metric, kill criterion, time box), Edit that section only, then stop; re-run `validate` with the results.
 
 ## Chat summary (max 10 lines)
 Decision + confidence, one-line rationale, next experiment, top suggestions, path.

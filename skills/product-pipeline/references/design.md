@@ -7,12 +7,12 @@ Specs for screens, forms, flows. No production code until the user picks **Imple
 Work out three things, in this priority order, and record the source of each in one line at the top of the artifact.
 
 **A. Requirements (what to design)**
-1. Backlog the user gave or pointed to, or `03-backlog.md` → use only the stories of the requested epic.
-2. Otherwise → the user's feature description (plus `validate-<feature>.md` if it exists: use its scope, pattern research and fit findings, don't redo them) + the project source: find the related existing screens, models, API/services and routes (Grep by feature keywords). Derive 3–8 working stories with AC, tagged `[A]` where inferred. These become the AC that Red Team checks against. If the description leaves the core behaviour open, that is a blocking question.
+1. Backlog the user gave or pointed to, or `03-backlog.md` → Grep the epic heading and read only that epic's stories.
+2. Otherwise → the user's feature description (plus `validate-<feature>.md` if it exists: use its scope, pattern research and fit findings, don't redo them, and start from its `Source map` instead of searching again) + the project source: find the related existing screens, models, API/services and routes (Grep by feature keywords). Derive 3–8 working stories with AC, tagged `[A]` where inferred. These become the AC that Red Team checks against. If the description leaves the core behaviour open, that is a blocking question.
 3. `review` → locate the screen in the source: Grep for distinctive visible text from the screenshot (title, labels, button text) in code and localization files, then follow to the screen file and its direct child widgets. Current behaviour = what the code does (fields, validation, states, API calls, navigation) + what the screenshot shows. Several candidate files → ask which (Recommended: the one whose strings match most). Not found → work from the screenshot alone and say so in one line.
 
 **B. Project rules (constraints the design must obey)**
-Read, if present: `CLAUDE.md`, `AGENTS.md`, `.cursor/rules` or similar, `README` sections on UI or conventions, `docs/` design or style guides, lint config (`analysis_options.yaml`, `.eslintrc`…). These rules override this skill's defaults where they conflict.
+If `04-design-foundation.md` exists, take them from its `Project conventions` section and skip this step. Otherwise read, if present (`CLAUDE.md` is already in context): `AGENTS.md`, `.cursor/rules` or similar, `README` sections on UI or conventions, `docs/` design or style guides, lint config (`analysis_options.yaml`, `.eslintrc`…). These rules override this skill's defaults where they conflict.
 
 **C. Foundation (visual system)**
 1. `04-design-foundation.md` exists → use it.
@@ -71,7 +71,7 @@ When the Design Director approves, ask ONE question with AskUserQuestion — nev
 
 Put the recommended one first with `(Recommended)` and a one-line reason. If the Director chose `Changes required` and the revision loop is still unused, apply them once and let the Director decide again. If the loop was already used or changes are still required, do not ask this question: write the spec with the open changes under `Decision`, list them in the chat summary, and stop. With no answer or no AskUserQuestion tool: stop after the spec and list the two options in the chat summary — never write code without the user's choice.
 
-After the mock, ask again: `Implement now (Recommended)` · `Request changes` (user lists them; update spec + mock together, one round, then ask again) · `Stop here`.
+After the mock, ask again: `Implement now (Recommended)` · `Request changes` (user lists them; apply them to spec and mock with targeted Edits, never a full rewrite; one round, then ask again) · `Stop here`.
 
 `design mock <id>` and `design implement <id>` run these steps later from an existing `design/<id>.md` without re-running any role.
 

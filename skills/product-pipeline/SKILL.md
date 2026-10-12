@@ -36,7 +36,7 @@ Before the first role (after the design mode's Step 0), plan the route:
 ## Shared rules (token and time budget)
 
 1. Artifacts live in `docs/product/<slug>/` (slug = short kebab name of the product). Reuse the folder if it exists.
-2. Each mode reads only its listed inputs — never re-derive from chat history. Read large files by section (Grep the heading, then Read with offset/limit). Input missing → use the mode's fallback; if none, proceed from the user's description and say in one line which step was skipped.
+2. Each mode reads only its listed inputs — never re-derive from chat history. Read large files by section (Grep the heading, then Read with offset/limit). Never re-open a file already read in this session unless it changed; `CLAUDE.md` is already in context — don't read it. Input missing → use the mode's fallback; if none, proceed from the user's description and say in one line which step was skipped.
 3. One agent plays every role, in order, inline. No subagents except the isolated Red Team.
 4. Each role writes one handoff (format below), max 120 words. Deciding roles and artifact sections are exempt. No preambles, no restating earlier roles.
 5. Anti-anchoring: each role first forms its own view from the raw input, THEN reads the previous handoff and records disagreement or `None`. Never rewrite earlier findings; add to them.
@@ -46,6 +46,8 @@ Before the first role (after the design mode's Step 0), plan the route:
 9. Write each artifact with a single Write at the end, handoffs in a `## Role log` section. Do not print handoffs in chat. (Exception: design Step 0 may write `04-design-foundation.md` once when extracting it from code.)
 10. Chat = the route line, one progress line per role (`✓ <Role> — <one-line take>`), any questions, the mode's final summary, and the file path.
 11. Artifacts and chat in the output language; role names, IDs, KPI names and technical terms stay in English.
+12. Independent tool calls (searches, Greps, Reads) go in ONE turn, in parallel.
+13. Web: WebSearch only where the mode allows it. WebFetch max 2 per run, only when search snippets are not enough.
 
 Handoff format:
 ```
@@ -60,12 +62,8 @@ Suggest: <concrete improvement beyond the role's scope, with one-line why> | Non
 
 ## Next step
 
-After the deciding role, ask ONE AskUserQuestion with the sensible next step first as `(Recommended)`:
-- validate: Go → `Run define now` · `Stop here`. Go in feature mode → `Design this feature now` (Recommended for effort S/M; starts `design "<feature>"`) · `Run define now` (Recommended for L) · `Stop here`. Validate Further / Pivot → `Plan the next experiment` · `Stop here`. No-Go → `Stop here` · `Pivot: re-run validate on a reframed idea`.
-  `Plan the next experiment` = expand `## Next experiment` in `01-validation.md` into a runnable plan (who to reach and how, script or test asset, success metric, kill criterion, time box), Edit that section only, then stop; re-run `validate` with the results.
-- define: Approved / Approved with conditions → `Design the first epic (<E-xx>)` · `Design foundation first` (if no UI exists) · `Stop here`. Sent back → `Fix the blockers and re-run define` (Recommended; user answers the blockers first) · `Stop here`.
-- design: see Next step in the design reference (mock / implement / stop).
-On a yes, start that mode in the same session, reading its artifact inputs as usual.
+After the deciding role, ask ONE AskUserQuestion with the options listed under `Next step` in the mode's reference file, the sensible one first as `(Recommended)`.
+On a yes, start that mode in the same session, reading its artifact inputs as usual. The chat summary always ends with the one-line command to continue in a fresh session instead (artifacts carry everything needed), e.g. `/product-pipeline design E-03`.
 
 ## Questions
 
@@ -74,7 +72,7 @@ Any role may ask the user when an answer would change the outcome and cannot be 
 - **Blocking** (a wrong guess would derail later roles: target user, platform, scope boundary, a business rule, a conflicting requirement) → pause and ask right away.
 - **Non-blocking** (a wrong guess is cheap to fix later) → do not pause. Continue with the recommended option, mark it `[A] assumed: <choice>`, and add it to the end-of-run batch.
 - Ask with AskUserQuestion: 1–4 questions per call, 2–4 options each, each option with a one-line consequence. The role's own recommendation is ALWAYS the first option, labelled `(Recommended)`, and its description says why. The user can always type another answer.
-- At most one pause per role; ask its questions together.
+- At most 2 blocking pauses per run, each asking its questions together; after that, blocking questions are handled as non-blocking.
 - End of run: before writing the artifact, ask the non-blocking batch (max 4, most impactful first). If an answer differs from the assumption, apply it to the affected sections in the same single Write (no re-run).
 - With `--no-ask`, no AskUserQuestion tool, or no answer: take the recommended option, keep going, and list it under `## Assumed decisions`.
 - Record every answered question under `## Decisions from user` (question → answer).

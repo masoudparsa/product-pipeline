@@ -30,5 +30,10 @@ No `01-validation.md` (validate was never run) → use the user's description pl
 
 `03-backlog.md`: grouped by phase › epic; one compact block per story; no prose between stories.
 
+## Next step
+
+- Approved / Approved with conditions → `Design the first epic (<E-xx>)` · `Design foundation first` (if no UI exists) · `Stop here`.
+- Sent back → `Fix the blockers and re-run define` (Recommended; user answers the blockers first) · `Stop here`.
+
 ## Chat summary (max 12 lines)
 Decision, MVP in one line, epic list with story counts, top 3 open questions, top suggestions, paths.
