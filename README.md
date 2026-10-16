@@ -28,6 +28,8 @@ All artifacts are written to `docs/product/<slug>/` in your project.
 - Review an existing screen: finds the screen in your source from the screenshot's text, audits it (strengths, opportunities, issues by severity with evidence), then runs the same chain — keeping all existing functionality
 - Creative but consistent: layout ideas, hierarchy and purposeful motion, built only from your existing tokens and components; any new token or component is flagged and justified. Uses installed design skills (ui-ux-pro-max, impeccable, taste…) for ideas when available.
 
+**Product-management skills**, when installed: validate and define may call at most 2 per run (`competitive-brief`, `synthesize-research`, `metrics-review`, `senior-product-owner`), mainly to bring in real data from connected analytics or research tools. Define can end by exporting the backlog to your tracker via `sprint-planning`.
+
 ## How it stays cheap and fast
 
 - **Smart routing** — each run classifies the request and skips roles it doesn't need (e.g. no market analysis for a feature inside an existing app, no UI Maker for a validation-only change). The route is shown before the run starts. Core roles (Red Team, deciders) are never skipped.

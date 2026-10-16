@@ -24,6 +24,8 @@ No `01-validation.md` (validate was never run) → use the user's description pl
     Skip when: ≤5 stories — BA self-checks DoR in role 9.
 11. **Product Chairman** — CORE. Approved | Approved with conditions | Sent back; list blockers and open decisions; review suggestions.
 
+**Helper skills.** If the session lists product-management skills, roles may invoke at most 2 per run: role 1 → `metrics-review` for real baselines, only when an analytics connector is connected; role 2 → `synthesize-research`, only when the user supplied research notes or transcripts; role 9 → `senior-product-owner` to critique stories and AC (the backlog format above still wins). Never `write-spec` (it duplicates `02-definition.md`), and never for Red Team or the Chairman. Claims tagged `[F]`/`[A]`. None with `--fast`.
+
 ## Artifacts
 
 `02-definition.md`: Route · Brief & KPIs · Personas & journeys · Requirements & rules · Feature catalog · IA, flows & screen list · Technical outline & NFRs · Roadmap & phases · Risks & open questions · Decision · Suggestions · Decisions from user · Assumed decisions · Role log. Omit sections whose role was skipped.
@@ -32,7 +34,7 @@ No `01-validation.md` (validate was never run) → use the user's description pl
 
 ## Next step
 
-- Approved / Approved with conditions → `Design the first epic (<E-xx>)` · `Design foundation first` (if no UI exists) · `Stop here`.
+- Approved / Approved with conditions → `Design the first epic (<E-xx>)` · `Design foundation first` (if no UI exists) · `Export backlog to tracker` (only if `sprint-planning` is listed and a tracker connector — Linear, Jira, Asana… — is connected) · `Stop here`.
 - Sent back → `Fix the blockers and re-run define` (Recommended; user answers the blockers first) · `Stop here`.
 
 ## Chat summary (max 15 lines, before the Next step question)

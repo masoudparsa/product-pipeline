@@ -23,6 +23,8 @@ Input: the raw idea. Web research: only in role 3, max 4 WebSearch calls (none w
 7. **Red Team** — CORE. Isolated.
 8. **Product Chairman** — CORE. Decides on evidence, not enthusiasm; accept or rebut every Red Team point; review suggestions.
 
+**Helper skills.** If the session lists product-management skills, roles may invoke at most 2 per run, mainly to bring in real data: role 3 → `competitive-brief`; role 2 → `synthesize-research`, only when the user supplied interview notes or transcripts; *feature mode* role 2 → `metrics-review`, only when an analytics connector (Amplitude, Pendo…) is connected. Their claims are tagged `[F]`/`[A]` like any other; they never feed Red Team or the Chairman. None with `--fast`.
+
 ## Artifact: `01-validation.md`
 
 ```
