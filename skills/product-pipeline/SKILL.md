@@ -63,7 +63,10 @@ Suggest: <concrete improvement beyond the role's scope, with one-line why> | Non
 ## Next step
 
 After the deciding role, print the mode's chat summary first — the user must be able to decide from the chat alone, without opening the artifact. Then ask ONE AskUserQuestion with the options listed under `Next step` in the mode's reference file, the sensible one first as `(Recommended)`.
-On a yes, start that mode in the same session, reading its artifact inputs as usual. The chat summary always ends with the one-line command to continue in a fresh session instead (artifacts carry everything needed), e.g. `/product-pipeline design E-03`.
+On a yes, start that mode in the same session, reading its artifact inputs as usual. The chat summary always ends with the one-line command to continue in a fresh session instead (artifacts carry everything needed), e.g. `/product-pipeline design E-03`. Rules for that command:
+- Use the command name this run was invoked with: `/product-pipeline:product-pipeline` when installed as a plugin, `/product-pipeline` when installed manually.
+- It runs the `(Recommended)` option, and uses an ID (`E-xx`, artifact id) whenever one exists — never a free-text description of something the backlog already has.
+- One epic or feature per command. If no UI exists yet, the command is `design foundation`. If more epics remain, add one line with their order (e.g. `Then: E-02 → E-03 → E-04`), never one command covering several.
 
 ## Questions
 

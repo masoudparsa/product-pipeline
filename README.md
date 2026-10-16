@@ -16,6 +16,8 @@ Three independent pipelines — call whichever you need, whenever you need it:
 
 All artifacts are written to `docs/product/<slug>/` in your project.
 
+When installed as a plugin, the command is namespaced: use `/product-pipeline:product-pipeline` in place of `/product-pipeline` (e.g. `/product-pipeline:product-pipeline design E-03`). The short form works for a manual install. Design one epic or feature per run.
+
 ## Pipelines and roles
 
 **1. Validate** — Product Strategist → Customer Discovery *(gate)* → Market & Competition → Growth & GTM → Business & Pricing → Feasibility & Compliance → Red Team → Product Chairman
