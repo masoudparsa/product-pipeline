@@ -40,7 +40,7 @@ Before the first role (after the design mode's Step 0), plan the route:
 3. One agent plays every role, in order, inline. No subagents except the isolated Red Team.
 4. Each role writes one handoff (format below), max 120 words. Deciding roles and artifact sections are exempt. No preambles, no restating earlier roles.
 5. Anti-anchoring: each role first forms its own view from the raw input, THEN reads the previous handoff and records disagreement or `None`. Never rewrite earlier findings; add to them.
-6. Tag claims `[F]` fact (with source: URL or file path) or `[A]` assumption. Never invent precise numbers — give a range marked `[A]`. No real interviews or data exist unless the user supplied them.
+6. Tag claims `[F]` fact (with source: URL or file path) or `[A]` assumption. Never invent precise numbers — give a range marked `[A]`. No real interviews or data exist unless the user supplied them. Sources that all repeat one origin (e.g. articles quoting the same press release) count as one `[F]`; trace a number to its origin before using it.
 7. Gates are hard: a failed gate skips all remaining optional roles; CORE roles still run.
 8. At most ONE revision loop per run, shared by Red Team and the decider. If it is already used, or the work still fails after it, the decider does not loop again: it records the remaining issues as blockers in its decision and the run ends.
 9. Write each artifact with a single Write at the end, handoffs in a `## Role log` section. Do not print handoffs in chat. (Exception: design Step 0 may write `04-design-foundation.md` once when extracting it from code.)

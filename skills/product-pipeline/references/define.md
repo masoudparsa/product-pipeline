@@ -5,18 +5,18 @@ No `01-validation.md` (validate was never run) → use the user's description pl
 
 ## Roles (in order)
 
-1. **PM + Data Analyst** — CORE. Product brief: vision, goals, in/out of scope, 3–5 KPIs, key funnel events.
+1. **PM + Data Analyst** — CORE. Product brief: a 3–4 sentence launch announcement written as if shipped (who it's for, the pain, what changes for them; if it can't be written clearly, the problem isn't clear yet), vision, goals, in/out of scope (out-of-scope items with a one-line why), one North Star metric plus 3–5 KPIs, key funnel events.
 2. **User Researcher** — 1–3 personas, main journeys, needs vs. stated wants.
    Skip when: a single, well-known user type and journeys are already clear from validate or the source.
 3. **Business Analyst + Security & Compliance** — CORE (BA part). Functional requirements (FR-xx), business rules, entity states, roles/permissions. Security & Compliance part: privacy and consent requirements that shape features.
    Skip the Security & Compliance part when: no personal, financial, health or children's data and no regulated domain.
-4. **PM** — feature catalog (F-xx): goal, user, linked FRs. Cut duplicates and low-value items.
+4. **PM** — feature catalog (F-xx): goal, user, linked FRs, Kano class (`Basic` = users expect it and leave without it · `Performance` = more is better · `Delighter` = unexpected). Cut duplicates and low-value items.
    Skip when: Small size — fold the catalog into role 7.
 5. **UX Architect** — information architecture, main flows, screen list (S-xx). NO per-screen detail (that is design mode).
    Skip when: no user interface (API, backend job, integration).
 6. **Tech Lead** — architecture outline, external services, data, non-functional requirements, complexity per feature (S/M/L), technical dependencies and enablers.
    Light (dependencies + complexity only) when: the work lives inside an existing project with a fixed architecture.
-7. **PM** — CORE. MVP boundary and phases (0 Foundation, 1 MVP, 2 Enhancement, 3 Growth), ordered by value, risk, cost, dependency. Typical blocking question: features on the MVP line.
+7. **PM** — CORE. MVP boundary and phases (0 Foundation, 1 MVP, 2 Enhancement, 3 Growth), ordered by value, risk, cost, dependency. Every `Basic` feature is in the MVP, or its absence is listed as a risk; at least one `Delighter` if cheap. Typical blocking question: features on the MVP line.
 8. **Red Team** — isolated, on MVP scope + phases. One revision loop back to role 7 if needed.
    Skip when: Small size and a single release — role 11 does a short inline challenge instead.
 9. **Business Analyst** — CORE. Backlog: Epic (E-xx) › Story (US-xx) / Enabler. Each story: title, `As a…I want…so that`, AC (incl. edge and negative cases), analytics events, phase, deps, priority, open questions.
